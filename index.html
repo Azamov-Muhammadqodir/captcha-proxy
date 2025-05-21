@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>reCAPTCHA demo: Alert Token</title>
+    <title>reCAPTCHA demo: Console Token</title>
     <script type="text/javascript">
       var widgetId;
 
@@ -12,13 +12,13 @@
       };
 
       function getCaptchaToken(event) {
-        event.preventDefault(); // Formani yuborishni to'xtatadi
+        event.preventDefault(); // Formani yuborishni to‘xtatadi
         var response = grecaptcha.getResponse(widgetId);
 
         if (!response) {
-          alert("Iltimos, avval CAPTCHA’ni bajaring.");
+          console.warn("⚠️ Iltimos, avval CAPTCHA’ni to‘ldiring.");
         } else {
-          alert("reCAPTCHA token:\n" + response);
+          console.log("✅ reCAPTCHA token:", response);
         }
       }
     </script>
