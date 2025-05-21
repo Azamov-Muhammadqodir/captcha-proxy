@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>reCAPTCHA demo: Explicit render after an onload callback</title>
+    <title>reCAPTCHA demo: Alert Token</title>
     <script type="text/javascript">
-      var onloadCallback = function() {
-        grecaptcha.render('html_element', {
-          'sitekey' : '6LfngEIrAAAAAObfV4tocBPIagG9XlA011mlV0bJ'
+      var widgetId;
+
+      var onloadCallback = function () {
+        widgetId = grecaptcha.render('html_element', {
+          'sitekey': '6LfngEIrAAAAAObfV4tocBPIagG9XlA011mlV0bJ'
         });
       };
+
+      function getCaptchaToken(event) {
+        event.preventDefault(); // Formani yuborishni to'xtatadi
+        var response = grecaptcha.getResponse(widgetId);
+
+        if (!response) {
+          alert("Iltimos, avval CAPTCHA’ni bajaring.");
+        } else {
+          alert("reCAPTCHA token:\n" + response);
+        }
+      }
     </script>
   </head>
   <body>
-    <form action="?" method="POST">
+    <form onsubmit="getCaptchaToken(event)">
       <div id="html_element"></div>
       <br>
       <input type="submit" value="Submit">
     </form>
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-        async defer>
-    </script>
+
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
   </body>
 </html>
